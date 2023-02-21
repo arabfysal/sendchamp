@@ -9,7 +9,6 @@ import {
   Text,
   Tag,
 } from '@chakra-ui/react';
-//import { PhoneIcon, AddIcon, WarningIcon } from '@chakra-ui/icons'
 import { FaWhatsappSquare } from 'react-icons/fa';
 import { THEME } from '../utils/constants';
 
@@ -37,19 +36,26 @@ const MESSAGE = {
 };
 
 export function MyCard({ data, label, currency }) {
-  //console.log(data);
   const getPrice = (item, option) => {
     switch (item) {
       case 'voice':
-        return {incoming: 'Coming Soon', outgoing: data[label]} ;
+        return { incoming: 'Coming Soon', outgoing: data[label], unit: 'sec' };
       case 'whatsapp':
-        return {incoming: data[label]?.incoming, outgoing: data[label]?.outgoing}
+        return {
+          incoming: data[label]?.incoming,
+          outgoing: data[label]?.outgoing,
+          unit: 'msg',
+        };
       case 'sms':
-        return {incoming: 'Coming Soon', outgoing: data[label]?.international};
+        return {
+          incoming: 'Coming Soon',
+          outgoing: data[label]?.international,
+          unit: 'sms',
+        };
       case 'email':
-        return {incoming: '', outgoing: data[label]?.charge};
+        return { incoming: '', outgoing: data[label]?.charge, unit: 'email' };
       case 'verification':
-        return {incoming: data[label]?.charge, outgoing: 0};
+        return { incoming: data[label]?.charge, outgoing: 0, unit: 'OTP' };
       default:
         break;
     }
@@ -80,14 +86,22 @@ export function MyCard({ data, label, currency }) {
               <Text fontSize={15}>{MESSAGE[label]['incomingMessage']}</Text>
               {console.log(data[label])}
               <Text fontSize={15}>
-                {currency} {getPrice(label)?.outgoing}/
+                {currency} {getPrice(label)?.outgoing}/{getPrice(label)?.unit}
               </Text>
             </GridItem>
             <GridItem w="100%">
-              <Text fontSize={16}>{MESSAGE[label]['outgoingMessage']}</Text>
-              <Tag color={THEME.PrimaryBlue}>
-                {getPrice(label).incoming}
-              </Tag>
+              {label !== 'email' ? (
+                <>
+                  <Text fontSize={16}>{MESSAGE[label]['outgoingMessage']}</Text>
+                  {getPrice(label).incoming === 'Coming Soon' ? (
+                    <Tag color={THEME.PrimaryBlue}>Coming Soon</Tag>
+                  ) : (
+                    <Text>
+                      {getPrice(label).incoming}/{getPrice(label)?.unit}
+                    </Text>
+                  )}
+                </>
+              ) : null}
             </GridItem>
           </Grid>
         </Box>
