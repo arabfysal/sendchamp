@@ -82,61 +82,65 @@ function App() {
             </Box>
             <Box maxH="160px">
               <Grid templateColumns="repeat(2, 1fr)" gap={6}>
-                <Select
-                maxH="150px"
-                overflowY="scroll"
-                  bg="#fff"
-                  placeholder="Select Country"
-                  onChange={e => handleChange(e, 'country')}
-                >
-                  {countries?.map(c => (
-                    <option
-                      value={{
-                        name: c?.name,
-                        currency: c?.currency,
-                        shortCode: c?.shortCode,
-                      }}
-                    >
-                      {c?.name}
-                    </option>
-                  ))}
-                </Select>
-                <Select
-                  bg="#fff"
-                  placeholder="Select Currency"
-                  onChange={e => handleChange(e, 'currency')}
-                >
-                  {countries?.map(c => (
-                    <option
-                      value={{
-                        name: c?.name,
-                        currency: c?.currency,
-                        shortCode: c?.shortCode,
-                      }}
-                    >
-                      {c?.name} - {c?.currency}
-                    </option>
-                  ))}
-                </Select>
+                <GridItem>
+                  <Select
+                    maxH="150px"
+                    overflowY="scroll"
+                    bg="#fff"
+                    placeholder="Select Country"
+                    onChange={e => handleChange(e, 'country')}
+                  >
+                    {countries?.map(c => (
+                      <option
+                        value={{
+                          name: c?.name,
+                          currency: c?.currency,
+                          shortCode: c?.shortCode,
+                        }}
+                      >
+                        {c?.name}
+                      </option>
+                    ))}
+                  </Select>
+                </GridItem>
+                <GridItem>
+                  <Select
+                    bg="#fff"
+                    placeholder="Select Currency"
+                    onChange={e => handleChange(e, 'currency')}
+                  >
+                    {countries?.map(c => (
+                      <option
+                        value={{
+                          name: c?.name,
+                          currency: c?.currency,
+                          shortCode: c?.shortCode,
+                        }}
+                      >
+                        {c?.name} - {c?.currency}
+                      </option>
+                    ))}
+                  </Select>
+                </GridItem>
               </Grid>
             </Box>
           </Box>
-          
+
           {/* <Pricing/> */}
         </Box>
         <Box
-         display="flex"
-         flexDirection="column"
-         w="100vw"
-         p="100px 0"
-         px={32}
-         mx="auto"
-         bg="#fff"
-         >
+          display="flex"
+          flexDirection="column"
+          w="100vw"
+          p="100px 0"
+          px={32}
+          mx="auto"
+          bg="#fff"
+        >
           <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={20}>
             {Object?.keys(price)?.map(item => (
               <GridItem w="100%">
-                <MyCard label={item} data={price[item]} />
+                <MyCard label={item} data={price} currency={selectedCurrency?.name} />
               </GridItem>
             ))}
           </Grid>
