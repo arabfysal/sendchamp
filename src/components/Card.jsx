@@ -38,6 +38,22 @@ const MESSAGE = {
 
 export function MyCard({ data, label, currency }) {
   //console.log(data);
+  const getPrice = (item, option) => {
+    switch (item) {
+      case 'voice':
+        return {incoming: 'Coming Soon', outgoing: data[label]} ;
+      case 'whatsapp':
+        return {incoming: data[label]?.incoming, outgoing: data[label]?.outgoing}
+      case 'sms':
+        return {incoming: 'Coming Soon', outgoing: data[label]?.international};
+      case 'email':
+        return {incoming: '', outgoing: data[label]?.charge};
+      case 'verification':
+        return {incoming: data[label]?.charge, outgoing: 0};
+      default:
+        break;
+    }
+  };
   return (
     <Card
       w="370px"
@@ -46,7 +62,6 @@ export function MyCard({ data, label, currency }) {
       borderRadius="lg"
       bg="#fff"
       p="40px"
-      //px={10}
     >
       <CardBody color={'black'}>
         <Box display="flex" flexDirection="column">
@@ -65,17 +80,14 @@ export function MyCard({ data, label, currency }) {
               <Text fontSize={15}>{MESSAGE[label]['incomingMessage']}</Text>
               {console.log(data[label])}
               <Text fontSize={15}>
-                {currency}{' '}
-                {data[label]?.charge ||
-                  data[label]?.outgoing ||
-                  data[label]?.international ||
-                  data?.voice }
-                /{label}
+                {currency} {getPrice(label)?.outgoing}/
               </Text>
             </GridItem>
             <GridItem w="100%">
               <Text fontSize={16}>{MESSAGE[label]['outgoingMessage']}</Text>
-              <Tag color={THEME.PrimaryBlue}> { data[label]?.outgoing || data[label]?.charge|| 'Coming Sooon'}</Tag>
+              <Tag color={THEME.PrimaryBlue}>
+                {getPrice(label).incoming}
+              </Tag>
             </GridItem>
           </Grid>
         </Box>
