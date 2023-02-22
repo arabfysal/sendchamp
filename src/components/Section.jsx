@@ -10,7 +10,7 @@ const Section = ({ title, description, action }) => {
           </Text>
           <Text fontSize={18}>{description}</Text>
         </Box>
-        <Box mt={8} mb={16}>
+        <Box w="100%" mx="auto" mt={12} mb={16}>
           {action}
         </Box>
       </Box>

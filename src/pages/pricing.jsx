@@ -82,9 +82,10 @@ const Pricing = () => {
               <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                 <GridItem>
                   <Select
-                    maxH="150px"
-                    overflowY="scroll"
+                    h="64px"
                     bg="#fff"
+                    border="1px"
+                    borderColor="#aaccf9"
                     placeholder="Select Country"
                     onChange={e => handleChange(e, 'country')}
                   >
@@ -103,7 +104,10 @@ const Pricing = () => {
                 </GridItem>
                 <GridItem>
                   <Select
+                    h="64px"
                     bg="#fff"
+                    border="1px"
+                    borderColor="#aaccf9"
                     placeholder="Select Currency"
                     onChange={e => handleChange(e, 'currency')}
                   >
@@ -129,7 +133,7 @@ const Pricing = () => {
         display="flex"
         flexDirection="column"
         w="100vw"
-        p="100px 0"
+        p="0 0 100px"
         px={32}
         mx="auto"
         bg="#fff"

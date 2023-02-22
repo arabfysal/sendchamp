@@ -4,10 +4,10 @@ import {
   Grid,
   CardBody,
   GridItem,
-  //Button,
   Box,
   Text,
   Tag,
+  CardFooter,
 } from '@chakra-ui/react';
 import { FaWhatsappSquare } from 'react-icons/fa';
 import { THEME } from '../utils/constants';
@@ -36,10 +36,14 @@ const MESSAGE = {
 };
 
 export function MyCard({ data, label, currency }) {
-  const getPrice = (item, option) => {
+  const getPrice = item => {
     switch (item) {
       case 'voice':
-        return { incoming: 'Coming Soon', outgoing: data[label], unit: 'sec' };
+        return {
+          incoming: 'Coming Soon',
+          outgoing: data[label],
+          unit: 'sec',
+        };
       case 'whatsapp':
         return {
           incoming: data[label]?.incoming,
@@ -62,18 +66,17 @@ export function MyCard({ data, label, currency }) {
   };
   return (
     <Card
-      w="370px"
+      h="360px"
       borderWidth="1px"
       borderColor="#aaccf9"
       borderRadius="lg"
       bg="#fff"
-      p="40px"
     >
-      <CardBody color={'black'}>
-        <Box display="flex" flexDirection="column">
+      <CardBody color="black">
+        <Box display="flex" flexDirection="column" p="10px">
           <FaWhatsappSquare size={64} color={THEME.PrimaryBlue} />
           <Text
-            mt={2}
+            my={4}
             fontWeight="bold"
             fontSize="lg"
             color={'black'}
@@ -83,22 +86,23 @@ export function MyCard({ data, label, currency }) {
           </Text>
           <Grid templateColumns="repeat(2, 1fr)" gap={2}>
             <GridItem w="100%">
-              <Text fontSize={15}>{MESSAGE[label]['incomingMessage']}</Text>
-              {console.log(data[label])}
-              <Text fontSize={15}>
-                {currency} {getPrice(label)?.outgoing}/{getPrice(label)?.unit}
+              <Text mb={4} fontSize={15}>{MESSAGE[label]['incomingMessage']}</Text>
+              <Text fontSize={15} as="b">
+                {currency} {getPrice(label)?.outgoing}
               </Text>
+              <span>/{getPrice(label)?.unit}</span>
             </GridItem>
             <GridItem w="100%">
               {label !== 'email' ? (
                 <>
-                  <Text fontSize={16}>{MESSAGE[label]['outgoingMessage']}</Text>
+                  <Text mb={4} fontSize={16}>{MESSAGE[label]['outgoingMessage']}</Text>
                   {getPrice(label).incoming === 'Coming Soon' ? (
                     <Tag color={THEME.PrimaryBlue}>Coming Soon</Tag>
                   ) : (
-                    <Text>
-                      {getPrice(label).incoming}/{getPrice(label)?.unit}
-                    </Text>
+                    <>
+                      <Text as="b">{getPrice(label).incoming}</Text>
+                      <span>/{getPrice(label)?.unit}</span>
+                    </>
                   )}
                 </>
               ) : null}
@@ -106,6 +110,21 @@ export function MyCard({ data, label, currency }) {
           </Grid>
         </Box>
       </CardBody>
+      {(label === 'sms' || label === 'whatsapp') && (
+        <CardFooter borderTop="1px" borderColor="#aaccf9">
+          <Box w="100%" h="40px" mx="auto">
+            <Text
+              color={THEME.PrimaryBlue}
+              textDecoration="underline"
+              textAlign="center"
+              cursor="pointer"
+              fontSize="xl"
+            >
+              More Details
+            </Text>
+          </Box>
+        </CardFooter>
+      )}
     </Card>
   );
 }
