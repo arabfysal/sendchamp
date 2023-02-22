@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Section from '../components/Section';
 import { Box, Select, Grid, GridItem, Center, Button } from '@chakra-ui/react';
-import { MyCard } from '../components/Card';
+import { PriceCard } from '../components/Card';
 import { THEME } from '../utils/constants';
 import {atom, useRecoilState } from 'recoil';
 import { countriesAtom, priceAtom } from '../recoil/atoms/pricingAtoms';
@@ -49,17 +49,18 @@ const Pricing = () => {
     }
   }, [selectedCountry, selectedCurrency, setPricing]);
 
-  const handleChange = (e, changeType) => {
+  const handleChange = (e) => {
+    const fieldName = e.target.name
     const selectedIndex = e.target.selectedIndex;
     const selectedOption = {
       code: countries[selectedIndex - 1].short_code,
       name: countries[selectedIndex - 1].currency,
       alPha3: countries[selectedIndex - 1].alpha3,
     };
-    if (changeType === 'country') {
+    if (fieldName === 'country') {
       setSelectedCountry(selectedOption?.code);
     }
-    if (changeType === 'currency') {
+    if (fieldName === 'currency') {
       setSelectedCurrency(selectedOption);
     }
   };
@@ -82,15 +83,18 @@ const Pricing = () => {
               <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                 <GridItem>
                   <Select
+                    name='country'
                     h="64px"
                     bg="#fff"
                     border="1px"
+                    borderRadius="12px"
                     borderColor="#aaccf9"
                     placeholder="Select Country"
-                    onChange={e => handleChange(e, 'country')}
+                    onChange={handleChange}
                   >
                     {countries?.map(c => (
                       <option
+                        key={c?.id}
                         value={{
                           name: c?.name,
                           currency: c?.currency,
@@ -104,15 +108,18 @@ const Pricing = () => {
                 </GridItem>
                 <GridItem>
                   <Select
+                    name='currency'
                     h="64px"
                     bg="#fff"
                     border="1px"
+                    borderRadius="12px"
                     borderColor="#aaccf9"
                     placeholder="Select Currency"
-                    onChange={e => handleChange(e, 'currency')}
+                    onChange={handleChange}
                   >
                     {countries?.map(c => (
                       <option
+                        key={c?.id}
                         value={{
                           name: c?.name,
                           currency: c?.currency,
@@ -139,10 +146,10 @@ const Pricing = () => {
         bg="#fff"
       >
         <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={20}>
-          {Object?.keys(price)?.map(item => (
-            <GridItem w="100%">
-              <MyCard
-                label={item}
+          {Object?.keys(price)?.map(key => (
+            <GridItem w="100%" key={key}>
+              <PriceCard
+                label={key}
                 data={price}
                 currency={selectedCurrency?.name}
               />
