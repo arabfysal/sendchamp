@@ -50,17 +50,16 @@ const Pricing = () => {
   }, [selectedCountry, selectedCurrency, setPricing]);
 
   const handleChange = (e) => {
-    const fieldName = e.target.name
-    const selectedIndex = e.target.selectedIndex;
+    const {selectedIndex, name} = e.target;
     const selectedOption = {
       code: countries[selectedIndex - 1].short_code,
       name: countries[selectedIndex - 1].currency,
       alPha3: countries[selectedIndex - 1].alpha3,
     };
-    if (fieldName === 'country') {
+    if (name === 'country') {
       setSelectedCountry(selectedOption?.code);
     }
-    if (fieldName === 'currency') {
+    if (name === 'currency') {
       setSelectedCurrency(selectedOption);
     }
   };
