@@ -182,8 +182,8 @@ const Pricing = () => {
           title="Start building better communication experience with Sendchamp"
           description="Access a platform that is modernizing communications and making it possible for your customers to communicate with your business the same way they do with their friends and family."
           action={
-            <>
-              <Grid templateColumns="repeat(2, 1fr)" gap={2}>
+            <Center>
+              <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                 <GridItem>
                   <Button bg={THEME.PrimaryBlue}>Start for free</Button>
                 </GridItem>
@@ -191,7 +191,7 @@ const Pricing = () => {
                   <Button bg={THEME.PrimaryBlue}>Talk To Sales</Button>
                 </GridItem>
               </Grid>
-            </>
+            </Center>
           }
         />
       </Box>
