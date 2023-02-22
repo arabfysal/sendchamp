@@ -50,7 +50,7 @@ const Pricing = () => {
   }, [selectedCountry, selectedCurrency, setPricing]);
 
   const handleChange = (e) => {
-    const {selectedIndex, name, value} = e.target;
+    const {selectedIndex, name} = e.target;
     const selectedOption = {
       code: countries[selectedIndex - 1].short_code,
       name: countries[selectedIndex - 1].currency,
