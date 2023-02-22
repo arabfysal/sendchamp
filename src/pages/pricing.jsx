@@ -8,12 +8,12 @@ import { countriesAtom, priceAtom } from '../recoil/atoms/pricingAtoms';
 
 const selectedCountryAtom = atom({
     key: 'selectedCountry',
-    default: '',
+    default: 'NG',
   });
 
   const selectedCurrencyAtom = atom({
     key: 'selectedCurrency',
-    default: [],
+    default: {name: 'NGN', alPha3: 'NGA'},
   });
 
 const Pricing = () => {
