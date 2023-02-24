@@ -35,7 +35,7 @@ const MESSAGE = {
   },
 };
 
-export function MyCard({ data, label, currency }) {
+export function PriceCard({ data, label, currency }) {
   const getPrice = item => {
     switch (item) {
       case 'voice':
