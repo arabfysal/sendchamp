@@ -3,35 +3,37 @@ import Section from '../components/Section';
 import { Box, Select, Grid, GridItem, Center, Button } from '@chakra-ui/react';
 import { PriceCard } from '../components/Card';
 import { THEME } from '../utils/constants';
-import {atom, useRecoilState } from 'recoil';
+import { atom, useRecoilState } from 'recoil';
 import { countriesAtom, priceAtom } from '../recoil/atoms/pricingAtoms';
 
 const selectedCountryAtom = atom({
-    key: 'selectedCountry',
-    default: 'NG',
-  });
+  key: 'selectedCountry',
+  default: 'NG',
+});
 
-  const selectedCurrencyAtom = atom({
-    key: 'selectedCurrency',
-    default: {name: 'NGN', alPha3: 'NGA'},
-  });
+const selectedCurrencyAtom = atom({
+  key: 'selectedCurrency',
+  default: { name: 'NGN', alPha3: 'NGA' },
+});
 
 const Pricing = () => {
   const [countries, setCountries] = useRecoilState(countriesAtom);
   const [price, setPricing] = useRecoilState(priceAtom);
-  const [selectedCountry, setSelectedCountry] = useRecoilState(selectedCountryAtom);
-  const [selectedCurrency, setSelectedCurrency] = useRecoilState(selectedCurrencyAtom);
+  const [selectedCountry, setSelectedCountry] =
+    useRecoilState(selectedCountryAtom);
+  const [selectedCurrency, setSelectedCurrency] =
+    useRecoilState(selectedCurrencyAtom);
 
   useEffect(() => {
     fetch('https://api.sendchamp.com/api/v1/country').then(res =>
       res
         .json()
         .then(data => setCountries(data?.data))
-        .catch(err =>{ 
-            throw Error('Coul not fetch data for the resources');
+        .catch(err => {
+          throw Error('Coul not fetch data for the resources');
         })
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -43,14 +45,14 @@ const Pricing = () => {
           .json()
           .then(data => setPricing(data?.data))
           .catch(err => {
-            throw Error('Could not fetch data for the resources')
+            throw Error('Could not fetch data for the resources');
           })
       );
     }
   }, [selectedCountry, selectedCurrency, setPricing]);
 
-  const handleChange = (e) => {
-    const {selectedIndex, name} = e.target;
+  const handleChange = e => {
+    const { selectedIndex, name } = e.target;
     const selectedOption = {
       code: countries[selectedIndex - 1].short_code,
       name: countries[selectedIndex - 1].currency,
@@ -82,7 +84,7 @@ const Pricing = () => {
               <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                 <GridItem>
                   <Select
-                    name='country'
+                    name="country"
                     h="64px"
                     bg="#fff"
                     border="1px"
@@ -107,7 +109,7 @@ const Pricing = () => {
                 </GridItem>
                 <GridItem>
                   <Select
-                    name='currency'
+                    name="currency"
                     h="64px"
                     bg="#fff"
                     border="1px"
@@ -170,7 +172,16 @@ const Pricing = () => {
           description="Apply for $1,000 in credits, if you are a startup that is less than 3 years old with less than $500k in total funding."
           action={
             <Center>
-              <Button color="#ffff" p={6}  bg={THEME.PrimaryBlue} border="1px" borderColor={THEME.PrimaryBlue}>Apply Now</Button>
+              <Button
+                color="#ffff"
+                p={6}
+                bg={THEME.PrimaryBlue}
+                border="1px"
+                borderColor={THEME.PrimaryBlue}
+                _hover={{bg: "#403fda"}}
+              >
+                Apply Now
+              </Button>
             </Center>
           }
         />
@@ -191,10 +202,27 @@ const Pricing = () => {
             <Center>
               <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                 <GridItem>
-                  <Button color="#ffff" p={6} bg={THEME.PrimaryBlue} border="1px" borderColor={THEME.PrimaryBlue}>Start for free</Button>
+                  <Button
+                    color="#ffff"
+                    p={6}
+                    bg={THEME.PrimaryBlue}
+                    border="1px"
+                    borderColor={THEME.PrimaryBlue}
+                    _hover={{bg: "#403fda"}}
+                  >
+                    Start for free
+                  </Button>
                 </GridItem>
                 <GridItem>
-                  <Button color="#595959" p={6} bg="#ffff" border="1px" borderColor="#595959">Talk To Sales</Button>
+                  <Button
+                    color="#595959"
+                    p={6}
+                    bg="#ffff"
+                    border="1px"
+                    borderColor="#595959"
+                  >
+                    Talk To Sales
+                  </Button>
                 </GridItem>
               </Grid>
             </Center>
