@@ -86,7 +86,7 @@ export function PriceCard({ data, label, currency }) {
           </Text>
           <Grid templateColumns="repeat(2, 1fr)" gap={2}>
             <GridItem w="100%">
-              <Text mb={4} fontSize={15}>{MESSAGE[label]['incomingMessage']}</Text>
+              <Text mb={4} fontSize={15}>{MESSAGE[label]?.incomingMessage}</Text>
               <Text fontSize={15} as="b">
                 {currency} {getPrice(label)?.outgoing}
               </Text>
@@ -95,12 +95,12 @@ export function PriceCard({ data, label, currency }) {
             <GridItem w="100%">
               {label !== 'email' ? (
                 <>
-                  <Text mb={4} fontSize={16}>{MESSAGE[label]['outgoingMessage']}</Text>
-                  {getPrice(label).incoming === 'Coming Soon' ? (
+                  <Text mb={4} fontSize={16}>{MESSAGE[label]?.outgoingMessage}</Text>
+                  {getPrice(label)?.incoming === 'Coming Soon' ? (
                     <Tag color={THEME.PrimaryBlue}>Coming Soon</Tag>
                   ) : (
                     <>
-                      <Text as="b">{getPrice(label).incoming}</Text>
+                      <Text as="b">{getPrice(label)?.incoming}</Text>
                       <span>/{getPrice(label)?.unit}</span>
                     </>
                   )}
