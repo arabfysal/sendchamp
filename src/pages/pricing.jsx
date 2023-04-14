@@ -170,7 +170,7 @@ const Pricing = () => {
           description="Apply for $1,000 in credits, if you are a startup that is less than 3 years old with less than $500k in total funding."
           action={
             <Center>
-              <Button bg={THEME.PrimaryBlue}>Apply Now</Button>
+              <Button color="#ffff" p={6}  bg={THEME.PrimaryBlue} border="1px" borderColor={THEME.PrimaryBlue}>Apply Now</Button>
             </Center>
           }
         />
@@ -191,10 +191,10 @@ const Pricing = () => {
             <Center>
               <Grid templateColumns="repeat(2, 1fr)" gap={6}>
                 <GridItem>
-                  <Button bg={THEME.PrimaryBlue}>Start for free</Button>
+                  <Button color="#ffff" p={6} bg={THEME.PrimaryBlue} border="1px" borderColor={THEME.PrimaryBlue}>Start for free</Button>
                 </GridItem>
                 <GridItem>
-                  <Button bg={THEME.PrimaryBlue}>Talk To Sales</Button>
+                  <Button color="#595959" p={6} bg="#ffff" border="1px" borderColor="#595959">Talk To Sales</Button>
                 </GridItem>
               </Grid>
             </Center>
