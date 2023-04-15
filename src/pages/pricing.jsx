@@ -19,10 +19,8 @@ const selectedCurrencyAtom = atom({
 const Pricing = () => {
   const [countries, setCountries] = useRecoilState(countriesAtom);
   const [price, setPricing] = useRecoilState(priceAtom);
-  const [selectedCountry, setSelectedCountry] =
-    useRecoilState(selectedCountryAtom);
-  const [selectedCurrency, setSelectedCurrency] =
-    useRecoilState(selectedCurrencyAtom);
+  const [selectedCountry, setSelectedCountry] = useRecoilState(selectedCountryAtom);
+  const [selectedCurrency, setSelectedCurrency] = useRecoilState(selectedCurrencyAtom);
 
   useEffect(() => {
     fetch('https://api.sendchamp.com/api/v1/country').then(res =>
@@ -147,15 +145,17 @@ const Pricing = () => {
         bg="#fff"
       >
         <Grid templateColumns="repeat(3, 1fr)" gap={6} mt={20}>
-          {Object?.keys(price)?.map(key => (
-            <GridItem w="100%" key={key}>
-              <PriceCard
-                label={key}
-                data={price}
-                currency={selectedCurrency?.name}
-              />
-            </GridItem>
-          ))}
+          {Object?.keys(price)
+            ?.filter(key => key !== 'number_insights')
+            ?.map(key => (
+              <GridItem w="100%" key={key}>
+                <PriceCard
+                  label={key}
+                  data={price}
+                  currency={selectedCurrency?.name}
+                />
+              </GridItem>
+            ))}
         </Grid>
       </Box>
       <Box
@@ -178,7 +178,7 @@ const Pricing = () => {
                 bg={THEME.PrimaryBlue}
                 border="1px"
                 borderColor={THEME.PrimaryBlue}
-                _hover={{bg: "#403fda"}}
+                _hover={{ bg: "#403fda" }}
               >
                 Apply Now
               </Button>
@@ -208,7 +208,7 @@ const Pricing = () => {
                     bg={THEME.PrimaryBlue}
                     border="1px"
                     borderColor={THEME.PrimaryBlue}
-                    _hover={{bg: "#403fda"}}
+                    _hover={{ bg: "#403fda" }}
                   >
                     Start for free
                   </Button>
